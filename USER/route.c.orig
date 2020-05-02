@@ -1,0 +1,536 @@
+/*
+ * route.c
+ *
+ *  Created on: 2020年4月20日
+ *      Author: multimicro
+ */
+#include "string.h"
+#include "route.h"
+#include "usart.h"
+#include "usart2.h"
+#include "gps.h"
+#include "lcd.h"
+#include "led.h"
+#include "malloc.h"
+#include "mmc_sd.h"
+#include "key.h"
+#include "ff.h"
+#include "exfuns.h"
+#include "stdlib.h"
+
+extern FIL fil;
+extern FRESULT res;
+extern UINT bww;
+extern char buf[100];
+
+
+nmea_msg gpsx;
+route_msg route;
+
+u8 dtbuf[50];   								//打印缓存器
+
+u8 upload=0;
+
+void route_init()
+{
+//    u8 *sd_data;
+    u8 num=0;
+    route.counter = 0;
+
+    //在LCD上面，一个点表示10cm
+    route.precise = 1.0;
+    route.x_offset = 0;
+    route.y_offset = 0;
+
+    route.flag_get_origin_coordinate = FALSE;
+    route.receive_gps_data = RECEIVE_GPS_DATA_FALSE;
+
+    route.sd_file_record = SD_RECORD_ENABLE;
+    route.sd_file_playback = PALYBACK_FALSE;
+    route.sd_file_show_read_name_counter = 0;
+
+
+    res=f_open (&fil,"0:/file_manage.txt", FA_OPEN_ALWAYS|FA_READ);
+
+    if(res!=FR_OK)
+    {
+        printf("\r\nopen file_manage.txt fail .. \r\n");
+        printf("open return code: %d\r\n",res);
+    } else {
+        printf("\r\nopen file_manage.txt success .. \r\n");
+
+        printf("open return code: %d\r\n",res);
+
+        f_read (&fil, buf,100,&bww);
+        f_close(&fil);
+
+        clear_file_name();
+        clear_file_number();
+
+        num= atoi(buf);//查看文件内记录了多少组数据
+        sprintf((char *)route.sd_file_number,"%d",num+1);
+
+        //删除文件后重新建立一个新文件，完成数据的更新工作
+        res=f_unlink("0:/file_manage.txt");
+
+        res=f_open (&fil,"0:/file_manage.txt", FA_OPEN_ALWAYS|FA_WRITE);
+
+        f_puts((char *)route.sd_file_number,&fil);
+
+        f_close(&fil);
+
+
+        clear_file_name();
+        strcat((char *)route.sd_file_name,(char *)"0:/");
+        strcat((char *)route.sd_file_name,(char *)route.sd_file_number);
+        strcat((char *)route.sd_file_name,(char *)".txt");
+
+        res=f_open (&fil,(char *)route.sd_file_name, FA_OPEN_ALWAYS|FA_WRITE);
+        if(res!=FR_OK)
+        {
+            printf("\r\nopen %s.txt fail .. \r\n",route.sd_file_number);
+            printf("open return code: %d\r\n",res);
+        } else {
+            printf("\r\nopen %s.txt success .. \r\n",route.sd_file_number);
+            printf("open return code: %d\r\n",res);
+            f_puts((char *)"0,0;",&fil);
+            f_close(&fil);
+        }
+
+        //strcpy((char *)route.sd_file_number,buf);
+        LCD_ShowString(200,0,230,24,24,(u8 *)route.sd_file_number);
+    }
+}
+
+FRESULT scan_files (char* path,char *buff)
+{
+    static FILINFO fno; //文件信息结构体
+    res = f_opendir(&dir, path);  // 打开文件目录
+    if (res == FR_OK) {//如果打开成功循环读出文件名字到buff中
+        strcat(buff, ",");
+        for (;;) {  //循环读出文件名字，循环次数等于SD卡根目录下的文件数目
+            res = f_readdir(&dir, &fno); //读取文件名
+            if (res != FR_OK || fno.fname[0] == 0x00)
+                break;  //读取错误或者读完所有文件结束就跳出循环
+            if (fno.fattrib & AM_ARC && fno.fname[0] != 'F')//读取的是文件夹名字
+            {
+                route.sd_file_read_name_num ++;
+                strcat(buff, fno.fname);	 //复制文件名字到缓存并打印文件名
+                strcat(buff, ",");
+                //printf("%s\r\n",fno.fname);
+            }
+        }
+        f_closedir(&dir);//关闭文件目录
+    }
+    return res;// 返回
+}
+
+void show_route()
+{
+    u16 i,rxlen;
+    float tp;
+    u8 key;
+
+    if(USART3_RX_STA&0X8000)		//接收到一次数据了
+    {
+        rxlen=USART3_RX_STA&0X7FFF;	//得到数据长度
+        for(i=0; i<rxlen; i++)USART1_TX_BUF[i]=USART3_RX_BUF[i];
+        USART3_RX_STA=0;		   	//启动下一次接收
+        USART1_TX_BUF[i]=0;			//自动添加结束符
+        GPS_Analysis(&gpsx,(u8*)USART1_TX_BUF);//分析字符串
+        if (route.flag_get_origin_coordinate == FALSE) {
+            route.counter ++ ;
+            if (route.counter < 10) {
+                return;
+            }
+            route.flag_get_origin_coordinate = TRUE;
+            tp=gpsx.longitude;
+            route.x_init = tp / 100000;
+            tp=gpsx.latitude;
+            route.y_init = tp / 100000;
+        }
+        //获取当前经纬度
+        tp=gpsx.longitude;//经度
+        route.x_current = tp / 100000;
+        tp=gpsx.latitude;//纬度
+        route.y_current = tp / 100000;
+
+        //经度每隔0.00001度，距离相差约1米
+        //纬度每隔0.00001度，距离相差约1.1米
+        route.x_offset_last = route.x_offset;
+        route.y_offset_last = route.y_offset;
+        route.x_offset = (route.x_current - route.x_init) * 100000.0 * route.precise;
+        route.y_offset = (route.y_current - route.y_init) * 100000.0 * 1.1 * route.precise;
+        route_lcd_show();
+        route.receive_gps_data = RECEIVE_GPS_DATA_TURE;
+
+        //route_data_playback();
+
+        //
+    }
+    //如果没有启用数据回放，那么就开始准备记录数据
+    if(route.sd_file_playback == PALYBACK_FALSE)
+    {
+        key=KEY_Scan(0);
+        if(key==KEY0_PRES)
+        {
+            //upload=!upload;
+            //如果按下按键后，检测到正在记录数据，那么就停止记录
+            if(route.sd_file_record == SD_RECORD_ENABLE)
+            {
+                route.sd_file_record = SD_RECORD_DISABLE;
+                LED0 = 1;//LED灯熄灭
+            } else {
+                //如果按下按键后，检测到没有记录数据，那么就开始新一次记录数据
+                LCD_Clear(WHITE);
+                route_init();
+                route.sd_file_record = SD_RECORD_ENABLE;
+            }
+        }
+    }
+    //如果数据记录被关闭，那么检测是否使能数据回放
+    if(route.sd_file_record == SD_RECORD_DISABLE)
+    {
+        //在没有记录GPS数据的前提下
+        key=KEY_Scan(0);
+        if(key==KEY1_PRES)
+        {
+            //如果KEY1按下，说明要开始回放历史轨迹数据
+            route.sd_file_record = PALYBACK_TURE;
+
+            memset(route.sd_file_read_name,0,sizeof(route.sd_file_read_name));
+            route.sd_file_read_name_num = 0;
+            scan_files("",route.sd_file_read_name);
+            printf("\r\n%s\r\n",route.sd_file_read_name);
+            //获取到所有的历史数据
+            route.sd_file_show_read_name_counter = 0;
+            //f_readdir("0:\",route.sd_file_read_name);
+			show_history_file();
+			show_history_route();
+        }
+        //此处填写选择需要回放的文件名
+        
+        //此处编写读取待回放文件内的数据
+    }
+
+    if(upload)
+    {
+
+        //        printf("\r\n-------------------------------------------------");
+        //        printf("\r\n%s\r\n",USART1_TX_BUF);//发送接收到的数据到串口1
+        //        printf("*****************************************************\r\n");
+    }
+
+    if(route.sd_file_record == SD_RECORD_ENABLE && route.receive_gps_data == RECEIVE_GPS_DATA_TURE)
+    {
+        route.receive_gps_data = RECEIVE_GPS_DATA_FALSE;
+        LED0=!LED0;
+        route_data_record();
+    }
+
+}
+
+void route_lcd_show()
+{
+    u16 x1,y1,x2,y2;
+
+    x1 = LCD_MAX_LEN_X / 2 + route.x_offset;
+    y1 = LCD_MAX_LEN_Y / 2 + route.y_offset;
+    x2 = LCD_MAX_LEN_X / 2 + route.x_offset_last;
+    y2 = LCD_MAX_LEN_Y / 2 + route.y_offset_last;
+
+    //	LCD_DrawPoint(x1,y1);
+    use_gpiob_io();
+    Gps_Msg_Show();				//显示信息
+    sprintf((char *)dtbuf,"x:%.0f",route.x_offset);	//得到经度字符串
+    LCD_ShowString(0,40,200,16,16,dtbuf);
+    sprintf((char *)dtbuf," y:%.0f",route.y_offset);	//得到经度字符串
+    LCD_ShowString(80,40,200,16,16,dtbuf);
+    LCD_DrawLine(x1,y1,x2,y2);
+    LCD_Draw_Circle(x1,y1,1);
+    use_gpiob_usart3();
+}
+
+void Gps_Msg_Show(void)
+{
+    float tp;
+    POINT_COLOR=BLUE;
+    tp=gpsx.longitude;
+    sprintf((char *)dtbuf,"Longitude:%.6f %1c   ",tp/=100000,gpsx.ewhemi);	//得到经度字符串
+    LCD_ShowString(0,0,200,16,16,dtbuf);
+    tp=gpsx.latitude;
+    sprintf((char *)dtbuf,"Latitude : %.6f %1c   ",tp/=100000,gpsx.nshemi);	//得到纬度字符串
+    LCD_ShowString(0,20,200,16,16,dtbuf);
+#if 0
+    tp=gpsx.altitude;
+    sprintf((char *)dtbuf,"Altitude:%.1fm     ",tp/=10);	    			//得到高度字符串
+    LCD_ShowString(30,160,200,16,16,dtbuf);
+    tp=gpsx.speed;
+    sprintf((char *)dtbuf,"Speed:%.3fkm/h     ",tp/=1000);		    		//得到速度字符串
+    LCD_ShowString(30,180,200,16,16,dtbuf);
+    if(gpsx.fixmode<=3)														//定位状态
+    {
+        sprintf((char *)dtbuf,"Fix Mode:%s",fixmode_tbl[gpsx.fixmode]);
+        LCD_ShowString(30,200,200,16,16,dtbuf);
+    }
+    sprintf((char *)dtbuf,"GPS+BD Valid satellite:%02d",gpsx.posslnum);	 		//用于定位的GPS卫星数
+    LCD_ShowString(30,220,200,16,16,dtbuf);
+    sprintf((char *)dtbuf,"GPS Visible satellite:%02d",gpsx.svnum%100);	 		//可见GPS卫星数
+    LCD_ShowString(30,240,200,16,16,dtbuf);
+
+    sprintf((char *)dtbuf,"BD Visible satellite:%02d",gpsx.beidou_svnum%100);	 		//可见北斗卫星数
+    LCD_ShowString(30,260,200,16,16,dtbuf);
+
+    sprintf((char *)dtbuf,"UTC Date:%04d/%02d/%02d   ",gpsx.utc.year,gpsx.utc.month,gpsx.utc.date);	//显示UTC日期
+    LCD_ShowString(30,280,200,16,16,dtbuf);
+    sprintf((char *)dtbuf,"UTC Time:%02d:%02d:%02d   ",gpsx.utc.hour,gpsx.utc.min,gpsx.utc.sec);	//显示UTC时间
+    LCD_ShowString(30,300,200,16,16,dtbuf);
+#endif
+}
+
+
+void route_data_record() {
+    //	u8 n;
+    int tmp;
+    u8 x_char[10],y_char[10],dat[30];
+
+    if( (int)route.x_offset == (int)route.x_offset_last && (int)route.y_offset == (int)route.y_offset_last)
+    {
+        //数据重合，说明没有移动，不记录数据
+        return;
+    }
+
+    memset(x_char,'\0',10);
+    memset(y_char,'\0',10);
+    memset(dat,'\0',30);
+
+    sprintf((char *)x_char,"%.0f",route.x_offset);
+    sprintf((char *)y_char,"%.0f",route.y_offset);
+
+    strcat((char *)dat,(char *)x_char);
+    strcat((char *)dat,(char *)",");
+    strcat((char *)dat,(char *)y_char);
+    strcat((char *)dat,(char *)"; ");
+    printf("\r\n%s\r\n",dat);
+
+    clear_file_name();
+
+    strcat((char *)route.sd_file_name,(char *)"0:/");
+    strcat((char *)route.sd_file_name,(char *)route.sd_file_number);
+    strcat((char *)route.sd_file_name,(char *)".txt");
+
+    res=f_open (&fil,(char *)route.sd_file_name, FA_OPEN_ALWAYS|FA_WRITE);
+    if(res!=FR_OK)
+    {
+        printf("\r\nopen %s.txt fail .. \r\n",route.sd_file_number);
+        printf("open return code: %d\r\n",res);
+    } else {
+        printf("\r\nopen %s.txt success .. \r\n",route.sd_file_number);
+        printf("open return code: %d\r\n",res);
+        res = f_lseek(&fil,f_size(&fil));
+        printf("f_lseek return code: %d\r\n",res);
+        tmp = f_puts((char *)dat,&fil);
+        printf("f_puts return code: %d\r\n",tmp);
+        f_close(&fil);
+    }
+
+}
+
+void route_data_playback()
+{
+    u32 data=0;
+
+    char *sd_data;
+    strcat((char *)route.sd_file_name,(char *)"0:/");
+    strcat((char *)route.sd_file_name,(char *)"1");
+    strcat((char *)route.sd_file_name,(char *)".txt");
+
+    res=f_open (&fil,(char *)"0:/1.txt", FA_OPEN_ALWAYS|FA_READ);
+    if(res!=FR_OK)
+    {
+        printf("\r\nopen %s.txt fail .. \r\n",route.sd_file_number);
+        printf("open return code: %d\r\n",res);
+    } else {
+        printf("\r\nopen %s.txt success .. \r\n",route.sd_file_number);
+        printf("open return code: %d\r\n",res);
+        data = f_size(&fil);
+        sd_data = mymalloc(data+2);
+        f_gets(sd_data,data+1,&fil);
+        printf("---\r\n%s\r\n---\r\n",sd_data);
+        printf("f_lseek return code: %d\r\n",data);
+	
+        f_close(&fil);
+        myfree(sd_data);
+    }
+}
+
+void show_history_file()
+{
+    u8 i=0;
+    u8 key;
+    use_gpiob_io();
+    //解析route.sd_file_read_name内部数据
+    //,1.txt,2.txt,3.txt,4.txt,
+
+    //获取到第一个逗号
+    route.sd_file_strx1 = strstr((const char*)route.sd_file_read_name,(const char*)",");
+    for(i=0; i<sizeof(route.sd_file_show_read_name); i++)route.sd_file_show_read_name[i]='\0';
+    for(i=0;; i++)
+    {
+        if(route.sd_file_strx1[i+1] == ',')
+            break;
+        route.sd_file_show_read_name[i]=route.sd_file_strx1[i+1];
+    }
+	route.sd_file_show_read_name_counter ++;
+    LCD_ShowString(60,130,200,16,16,(u8*)route.sd_file_show_read_name);
+
+    while(1) {
+
+        key=KEY_Scan(0);
+        if(key==KEY0_PRES)
+        {
+            //读取下一个文件
+            route.sd_file_show_read_name_counter ++;
+            if(route.sd_file_show_read_name_counter > route.sd_file_read_name_num)
+            {
+				LCD_Fill(60,130,240,130+16,WHITE);
+                LCD_ShowString(60,130,200,16,16,(u8*)"Length Upflow!");
+				route.sd_file_show_read_name_counter = route.sd_file_read_name_num + 1;
+				continue;
+            }
+            route.sd_file_strx1 = strstr((const char*)(route.sd_file_strx1+1),(const char*)",");
+            for(i=0; i<sizeof(route.sd_file_show_read_name); i++)route.sd_file_show_read_name[i]='\0';
+            for(i=0;; i++)
+            {
+                if(route.sd_file_strx1[i+1] == ',')
+                    break;
+                route.sd_file_show_read_name[i]=route.sd_file_strx1[i+1];
+            }
+			LCD_Fill(60,130,240,130+16,WHITE);
+            LCD_ShowString(60,130,200,16,16,(u8*)route.sd_file_show_read_name);
+        }
+		else if(key==KEY1_PRES)
+        {
+            //读取上一个文件
+            route.sd_file_show_read_name_counter --;
+            if(route.sd_file_show_read_name_counter <= 0)
+            {
+				LCD_Fill(60,130,240,130+16,WHITE);
+                LCD_ShowString(60,130,200,16,16,(u8*)"Length Overflow!");
+				route.sd_file_show_read_name_counter = 1;
+				continue;
+            }
+			
+			while(1)
+			{
+				--route.sd_file_strx1;
+				if(route.sd_file_strx1[0] == ',')
+					break;
+			}
+			
+            //route.sd_file_strx1 = strstr((const char*)(route.sd_file_strx1-1),(const char*)",");
+            for(i=0; i<sizeof(route.sd_file_show_read_name); i++)route.sd_file_show_read_name[i]='\0';
+            for(i=0;; i++)
+            {
+                if(route.sd_file_strx1[i+1] == ',')
+                    break;
+                route.sd_file_show_read_name[i]=route.sd_file_strx1[i+1];
+            }
+			LCD_Fill(60,130,240,130+16,WHITE);
+            LCD_ShowString(60,130,200,16,16,(u8*)route.sd_file_show_read_name);
+        } else if(key==WKUP_PRES)
+		{
+			LCD_Fill(60,130,240,130+16,WHITE);
+			LCD_ShowString(60,130,200,16,16,(u8*)"success");
+			break;
+		}
+    }
+	use_gpiob_usart3();
+}
+
+
+void show_history_route()
+{
+	u32 data=0;
+	u8 i=0;
+    char *sd_data;
+	
+    clear_file_name();
+    strcat((char *)route.sd_file_name,(char *)"0:/");
+    strcat((char *)route.sd_file_name,(char *)route.sd_file_show_read_name);
+
+    res=f_open (&fil,(char *)route.sd_file_name, FA_OPEN_ALWAYS|FA_READ);
+    if(res!=FR_OK)
+    {
+        printf("\r\nopen %s fail .. \r\n",route.sd_file_show_read_name);
+        printf("open return code: %d\r\n",res);
+    } else {
+        printf("\r\nopen %s success .. \r\n",route.sd_file_show_read_name);
+        printf("open return code: %d\r\n",res);
+        data = f_size(&fil);
+        sd_data = mymalloc(data+2);
+        f_gets(sd_data,data+1,&fil);
+        printf("---\r\n%s\r\n---\r\n",sd_data);
+        printf("f_lseek return code: %d\r\n",data);
+        f_close(&fil);
+		
+		//0,0;2,-3;2,-3;3,-3;5,-5;10,-8;
+		route.x_offset = 0;
+		route.y_offset = 0;//初始值
+		route.sd_file_strx2 = strstr((const char*)data,",");
+		
+		while(1)
+		{
+		route.x_offset_last = route.x_current;
+		route.y_offset_last = route.y_current;
+		
+		for(i=0;i<sizeof(route.x_offset_char);i++){route.x_offset_char[i]='\0';route.y_offset_char[i]='\0';}
+		//转换x
+		route.sd_file_strx2 = strstr((const char*)(route.sd_file_strx2 + 1),";");
+		for(i=0;; i++)
+		{
+			if(route.sd_file_strx1[i+1] == ',')
+				break;
+			route.x_offset_char[i]=route.sd_file_strx2[i+1];
+		}
+		route.x_offset = atoi(route.x_offset_char);//转换为int型
+		//转换y
+		route.sd_file_strx2 = strstr((const char*)(route.sd_file_strx2 + 1),",");
+		for(i=0;; i++)
+		{
+			if(route.sd_file_strx1[i+1] == ';')
+				break;
+			route.y_offset_char[i]=route.sd_file_strx2[i+1];
+		}
+		route.y_offset = atoi(route.y_offset_char);//转换为int型
+		/*
+		    x1 = LCD_MAX_LEN_X / 2 + route.x_offset;
+			y1 = LCD_MAX_LEN_Y / 2 + route.y_offset;
+			x2 = LCD_MAX_LEN_X / 2 + route.x_offset_last;
+			y2 = LCD_MAX_LEN_Y / 2 + route.y_offset_last;
+		
+		*/
+		route_lcd_show();
+	}
+		
+        myfree(sd_data);
+    }
+}
+
+void clear_file_name()
+{
+    u8 i = 0;
+    for(i=0; i<sizeof(route.sd_file_name); i++)
+    {
+        route.sd_file_name[i] = '\0';
+    }
+}
+
+void clear_file_number()
+{
+    u8 i = 0;
+    for(i=0; i<sizeof(route.sd_file_number); i++)
+    {
+        route.sd_file_number[i] = '\0';
+    }
+}

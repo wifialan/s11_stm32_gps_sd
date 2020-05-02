@@ -1,0 +1,273 @@
+#include "led.h"
+#include "delay.h"
+#include "sys.h"
+#include "usart.h"
+#include "lcd.h"
+#include "key.h"
+//#include "usmart.h"
+#include "usart2.h"
+#include "malloc.h"
+#include "MMC_SD.h"
+#include "ff.h"
+#include "exfuns.h"
+#include "route.h"
+#include "gps.h"
+#include "string.h"
+//基于 ALIENTEK Mini STM32开发板范例代码29 修改
+//FATFS 实验
+//技术支持：www.openedv.com
+//广州市星翼电子科技有限公司
+
+/*******变量定义*****/
+FIL fil;
+FRESULT res;
+UINT bww;
+char buf[100];
+
+extern route_msg route;
+
+void data_record(void);
+
+int main(void)
+{
+    u8 show[]= {"China"};
+    u8 show2[]= {"NPWU"};
+
+    u32 total,free;
+    u8 key=0XFF;
+    u8 t=0;
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);// 设置中断优先级分组2
+    delay_init();	    	 //延时函数初始化
+    uart_init(115200);	 	//串口初始化为115200
+    USART3_Init(38400);  //初始化串口3波特率为115200
+    exfuns_init();		//为fatfs相关变量申请内存
+    LCD_Init();			//初始化液晶
+    LED_Init();         //LED初始化
+    KEY_Init();
+    //usmart_dev.init(72);
+    mem_init();			//初始化内存池
+
+    POINT_COLOR=RED;//设置字体为红色
+    use_gpiob_io();
+    LCD_ShowString(60,50,200,16,16,"Mini STM32");
+    LCD_ShowString(60,70,200,16,16,"FATFS TEST");
+    LCD_ShowString(60,90,200,16,16,"ATOM@ALIENTEK");
+    LCD_ShowString(60,110,200,16,16,"Use USMART for test");
+    LCD_ShowString(60,130,200,16,16,"2014/3/14");
+
+    while(SD_Initialize())					//检测SD卡
+    {
+        LCD_ShowString(60,150,200,16,16,"SD Card Error!");
+        delay_ms(200);
+        LCD_Fill(60,150,240,150+16,WHITE);//清除显示
+        delay_ms(200);
+        LED0=!LED0;//DS0闪烁
+    }
+    exfuns_init();							//为fatfs相关变量申请内存
+    f_mount(fs[0],"0:",1); 					//挂载SD卡
+    //f_mount(fs[1],"1:",1); 					//挂载FLASH.
+    while(exf_getfree("0",&total,&free))	//得到SD卡的总容量和剩余容量
+    {
+        LCD_ShowString(60,150,200,16,16,"Fatfs Error!");
+        delay_ms(200);
+        LCD_Fill(60,150,240,150+16,WHITE);//清除显示
+        delay_ms(200);
+        LED0=!LED0;//DS0闪烁
+    }
+    POINT_COLOR=BLUE;//设置字体为蓝色
+    LCD_ShowString(60,150,200,16,16,"FATFS OK!");
+    LCD_ShowString(60,170,200,16,16,"SD Total Size:     MB");
+    LCD_ShowString(60,190,200,16,16,"SD  Free Size:     MB");
+    LCD_ShowNum(172,170,total>>10,5,16);					//显示SD卡总容量 MB
+    LCD_ShowNum(172,190,free>>10,5,16);						//显示SD卡剩余容量 MB
+
+    /********************start*************************/
+#if 0
+    res=f_open (&fil,"0:/data.txt", FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
+    if(res!=FR_OK)
+    {
+        printf("\r\n f_open() fail .. \r\n");
+    } else {
+        printf("\r\n f_open() success .. \r\n");
+    }
+    printf("open return code: %d\r\n",res);
+
+    //res = f_lseek(&fil,fil.fsize);
+    res = f_lseek(&fil,f_size(&fil));
+
+    res = f_puts("Hello World",&fil);
+
+    printf("puts return code: %d\r\n",res);
+
+    f_close(&fil);
+
+#endif
+    res=f_open (&fil,"0:/message.txt", FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
+
+    if(res!=FR_OK)
+    {
+        printf("\r\n f_open() fail .. \r\n");
+    } else {
+        printf("\r\n f_open() success .. \r\n");
+
+        printf("open return code: %d\r\n",res);
+
+        res = f_lseek(&fil,f_size(&fil));
+        printf("f_lseek return code: %d\r\n",res);
+
+        res = f_write (&fil, show, sizeof(show), &bww);
+
+        printf("write return code: %d\r\n",res);
+
+        f_close(&fil);
+    }
+
+
+
+    /********************end***************************/
+#if 1
+    delay_ms(1000);
+    LCD_Clear(WHITE);
+    use_gpiob_usart3();
+    if(SkyTra_Cfg_Rate(5)!=0)	//设置定位信息更新速度为5Hz,顺便判断GPS模块是否在位.
+    {
+        LCD_ShowString(30,120,200,16,16,"S1216F8-BD Setting...");
+        do
+        {
+            USART3_Init(9600);			//初始化串口3波特率为9600
+            SkyTra_Cfg_Prt(3);			//重新设置模块的波特率为38400
+            USART3_Init(38400);			//初始化串口3波特率为38400
+            key=SkyTra_Cfg_Tp(100000);	//脉冲宽度为100ms
+        } while(SkyTra_Cfg_Rate(5)!=0&&key!=0);//配置SkyTraF8-BD的更新速率为5Hz
+        LCD_ShowString(30,120,200,16,16,"S1216F8-BD Set Done!!");
+        delay_ms(500);
+        LCD_Fill(30,120,30+200,120+16,WHITE);//清除显示
+        LCD_Clear(WHITE);
+    }
+    use_gpiob_io();
+//    USART_DeInit(USART2);
+//    //USART_DMACmd(USART2,USART_DMAReq_Tx,DISABLE);  	//关闭串口2的DMA发送
+//    USART_Cmd(USART2, DISABLE);                    //关闭串口
+//    USART_ClearFlag(USART2, USART_IT_RXNE);
+//    USART_ITConfig(USART2, USART_IT_RXNE, DISABLE);//关闭中断
+//    USART2_RX_STA=0;		//清零
+//    TIM4_Set(0);			//关闭定时器4
+//    delay_ms(1000);
+#endif
+    res=f_open (&fil,"0:/message.txt", FA_OPEN_ALWAYS|FA_WRITE);
+
+    if(res!=FR_OK)
+    {
+        printf("\r\n f_open() fail .. \r\n");
+        printf("open return code: %d\r\n",res);
+    } else {
+        printf("\r\n f_open() success .. \r\n");
+
+        printf("open return code: %d\r\n",res);
+
+        res = f_lseek(&fil,f_size(&fil));
+        printf("f_lseek return code: %d\r\n",res);
+
+        res = f_write (&fil, show2, sizeof(show2), &bww);
+
+        printf("write return code: %d\r\n",res);
+
+        f_close(&fil);
+        memset(buf,'\0',sizeof(buf));
+        res=f_open (&fil,"0:/message.txt", FA_READ);
+
+        f_read (&fil, buf,100,&bww);
+        f_close(&fil);
+        LCD_ShowString(60,210,230,24,24,(u8 *)buf);
+    }
+	use_gpiob_usart3();
+    route_init();
+
+    while(1)
+    {
+        t++;
+        delay_ms(200);
+        LED0=!LED0;
+        show_route();
+        //data_record();
+    }
+}
+
+void data_record() {
+
+    int tmp;
+    res=f_open (&fil,"0:/data1.txt", FA_OPEN_ALWAYS|FA_WRITE);
+    if(res!=FR_OK)
+    {
+        printf("\r\nf_open() fail .. \r\n");
+        printf("open return code: %d\r\n",res);
+    } else {
+        printf("\r\nf_open() success .. \r\n");
+        printf("open return code: %d\r\n",res);
+        res = f_lseek(&fil,f_size(&fil));
+        printf("f_lseek return code: %d\r\n",res);
+
+        tmp = f_puts((char *)"ASUS China",&fil);
+
+        printf("f_puts return code: %d\r\n",tmp);
+
+        f_close(&fil);
+
+        memset(buf,'\0',sizeof(buf));
+        res=f_open (&fil,"0:/data1.txt", FA_READ);
+
+        f_read (&fil, buf,100,&bww);
+        f_close(&fil);
+        LCD_ShowString(60,210,230,24,24,(u8 *)buf);
+    }
+
+
+
+
+//	res=f_open (&fil,"0:/data1.txt", FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
+//	res = f_lseek(&fil,fil.fsize);
+//	n=f_puts("nihaostm32",&fil);
+//
+//	if(n<1)  //判断写是否成功
+//	{
+//		printf("\r\n f_puts() fail .. \r\n");
+//	}else{
+//		printf("\r\n f_puts() success .. \r\n");
+//	}
+
+//    f_close(&fil);
+
+//    u8 buf[6];
+//    u8 ret=0;
+//    int i;
+    //SD卡最小的读写单位是扇区，一个扇区大小为512Byte
+    //首先读取扇区0里面的信息，获取可当前空置可写入数据的扇区、一共有多少组数据和每组数据的扇区号
+    //每次写入三个数据(_x_ _y_ _y_)
+    //memset(buf,0,6);
+    //sprintf(route.sd_buf + route.sd_buf_counter,"%03d",(int)route.x_offset + 120);
+//	sprintf(buf1,"%01x",(int)route.x_offset + 120);
+    //route.sd_buf_counter += 3;
+//	sprintf(buf2,"%02x",(int)route.y_offset + 160);
+//	strncat(route.sd_buf,buf,2);
+    //sprintf(route.sd_buf + route.sd_buf_counter,"%03d",(int)route.y_offset + 160);
+    //route.sd_buf_counter += 3;
+//	strncat(route.sd_buf,buf,4);
+//    if(route.sd_buf_counter > 510)
+//        return;
+//    printf("\r\n+++++++++++++++++++++++++++++++++++++++\r\n");
+//    for(i=0; i<512; i++) {
+//        if (i%6 == 0) {
+//            printf(", ");
+//        }
+//        printf("%x ",route.sd_buf[i]);
+//    }
+//    printf("\r\n+++++++++++++++++++++++++++++++++++++++\r\n");
+    //SD_Format_Sectorx(0);
+    //ret = SD_WriteDisk("000000000000000000000000000000000000",1,1);
+//    if (ret == 0) {
+//        printf("\r\n/////////////////////////////////////////\r\n");
+//    } else {
+//        printf("\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n");
+//    }
+
+}
