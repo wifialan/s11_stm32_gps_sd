@@ -3,11 +3,11 @@
 <title>Static Call Graph - [..\OBJ\FATFS.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\FATFS.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Apr 28 11:51:10 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Wed May 13 15:57:24 2020
 <BR><P>
-<H3>Maximum Stack Usage =        592 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        632 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-__rt_entry_main &rArr; main &rArr; show_route &rArr; route_data_record &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
+__rt_entry_main &rArr; main &rArr; show_route &rArr; route_data_record_end &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 <P>
 <H3>
 Functions with no stack information
@@ -376,8 +376,8 @@ Global Symbols
 <P><STRONG><a name="[1f6]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[7f]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 592 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; show_route &rArr; route_data_record &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
+<BR><BR>[Stack]<UL><LI>Max Depth = 632 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; show_route &rArr; route_data_record_end &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
@@ -399,15 +399,16 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
 </UL>
 
-<P><STRONG><a name="[80]"></a>main</STRONG> (Thumb, 566 bytes, Stack size 24 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 592 + Unknown Stack Size
-<LI>Call Chain = main &rArr; show_route &rArr; route_data_record &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
+<P><STRONG><a name="[80]"></a>main</STRONG> (Thumb, 638 bytes, Stack size 24 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 632 + Unknown Stack Size
+<LI>Call Chain = main &rArr; show_route &rArr; route_data_record_end &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_usart3
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_io
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
 <LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_init
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mount
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exfuns_init
@@ -426,6 +427,7 @@ Global Symbols
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Scan
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
@@ -461,191 +463,199 @@ Global Symbols
 <P><STRONG><a name="[4c]"></a>SystemInit</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, system_stm32f10x.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = SystemInit &rArr; SetSysClock &rArr; SetSysClockTo72
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
+<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(.text)
 </UL>
 <P><STRONG><a name="[1f9]"></a>SystemCoreClockUpdate</STRONG> (Thumb, 142 bytes, Stack size 8 bytes, system_stm32f10x.o(.text), UNUSED)
 
-<P><STRONG><a name="[a3]"></a>clear_file_name</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, route.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<P><STRONG><a name="[a5]"></a>clear_file_name</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, route.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
 </UL>
 
-<P><STRONG><a name="[a4]"></a>clear_file_number</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, route.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<P><STRONG><a name="[a6]"></a>clear_file_number</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, route.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
 </UL>
 
-<P><STRONG><a name="[9b]"></a>route_init</STRONG> (Thumb, 376 bytes, Stack size 16 bytes, route.o(.text))
+<P><STRONG><a name="[9d]"></a>route_init</STRONG> (Thumb, 332 bytes, Stack size 16 bytes, route.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 448 + Unknown Stack Size
 <LI>Call Chain = route_init &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_file_number
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_file_name
+<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_file_number
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_file_name
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_usart3
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_io
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a9]"></a>scan_files</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, route.o(.text))
+<P><STRONG><a name="[ab]"></a>scan_files</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, route.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = scan_files &rArr; f_opendir &rArr; follow_path &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_closedir
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
+<BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_closedir
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
+<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
 </UL>
 
-<P><STRONG><a name="[ad]"></a>route_data_record</STRONG> (Thumb, 324 bytes, Stack size 72 bytes, route.o(.text))
+<P><STRONG><a name="[af]"></a>route_data_record</STRONG> (Thumb, 324 bytes, Stack size 72 bytes, route.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 504 + Unknown Stack Size
 <LI>Call Chain = route_data_record &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_file_name
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_file_name
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 </UL>
 
-<P><STRONG><a name="[b2]"></a>Gps_Msg_Show</STRONG> (Thumb, 568 bytes, Stack size 32 bytes, route.o(.text))
+<P><STRONG><a name="[b4]"></a>route_lcd_show</STRONG> (Thumb, 728 bytes, Stack size 64 bytes, route.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
+<LI>Call Chain = route_lcd_show &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Draw_Circle
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_usart3
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_io
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+</UL>
+
+<P><STRONG><a name="[b9]"></a>show_history_route</STRONG> (Thumb, 1168 bytes, Stack size 48 bytes, route.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 480 + Unknown Stack Size
+<LI>Call Chain = show_history_route &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mymalloc
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myfree
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_gets
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_file_name
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
+</UL>
+
+<P><STRONG><a name="[bf]"></a>show_history_file</STRONG> (Thumb, 654 bytes, Stack size 24 bytes, route.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = show_history_file &rArr; LCD_ShowString &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint &rArr; LCD_WriteReg
+</UL>
+<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Scan
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
+</UL>
+
+<P><STRONG><a name="[9c]"></a>route_data_playback</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, route.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 488 + Unknown Stack Size
+<LI>Call Chain = route_data_playback &rArr; show_history_route &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_files
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_usart3
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_io
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[c1]"></a>route_data_record_end</STRONG> (Thumb, 422 bytes, Stack size 120 bytes, route.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 552 + Unknown Stack Size
+<LI>Call Chain = route_data_record_end &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_file_name
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+</UL>
+
+<P><STRONG><a name="[c2]"></a>Gps_Msg_Show</STRONG> (Thumb, 162 bytes, Stack size 32 bytes, route.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
 <LI>Call Chain = Gps_Msg_Show &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
-</UL>
-
-<P><STRONG><a name="[b5]"></a>route_lcd_show</STRONG> (Thumb, 348 bytes, Stack size 56 bytes, route.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 224 + Unknown Stack Size
-<LI>Call Chain = route_lcd_show &rArr; Gps_Msg_Show &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Draw_Circle
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_usart3
+<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_usart3
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_io
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 </UL>
 
-<P><STRONG><a name="[ba]"></a>show_history_route</STRONG> (Thumb, 506 bytes, Stack size 32 bytes, route.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 464 + Unknown Stack Size
-<LI>Call Chain = show_history_route &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
+<P><STRONG><a name="[9e]"></a>show_route</STRONG> (Thumb, 852 bytes, Stack size 56 bytes, route.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 608 + Unknown Stack Size
+<LI>Call Chain = show_route &rArr; route_data_record_end &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mymalloc
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myfree
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_gets
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_file_name
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPS_Analysis
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_usart3
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_io
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
-</UL>
-
-<P><STRONG><a name="[c0]"></a>show_history_file</STRONG> (Thumb, 858 bytes, Stack size 24 bytes, route.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = show_history_file &rArr; LCD_ShowString &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint &rArr; LCD_WriteReg
-</UL>
-<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Scan
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
-</UL>
-
-<P><STRONG><a name="[c2]"></a>route_data_playback</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, route.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 472 + Unknown Stack Size
-<LI>Call Chain = route_data_playback &rArr; show_history_route &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
-</UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_files
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_usart3
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_io
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
-</UL>
-
-<P><STRONG><a name="[c4]"></a>route_data_record_end</STRONG> (Thumb, 152 bytes, Stack size 8 bytes, route.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 440 + Unknown Stack Size
-<LI>Call Chain = route_data_record_end &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_file_name
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
-</UL>
-
-<P><STRONG><a name="[9c]"></a>show_route</STRONG> (Thumb, 788 bytes, Stack size 64 bytes, route.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 568 + Unknown Stack Size
-<LI>Call Chain = show_route &rArr; route_data_record &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
-</UL>
-<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Scan
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPS_Analysis
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_usart3
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;use_gpiob_io
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Scan
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
@@ -780,8 +790,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteRAM_Prepare
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Draw_Circle
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Draw_Circle
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
 
 <P><STRONG><a name="[da]"></a>LCD_Fast_DrawPoint</STRONG> (Thumb, 854 bytes, Stack size 16 bytes, lcd.o(.text))
@@ -824,8 +834,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteRAM_Prepare
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -848,7 +858,7 @@ Global Symbols
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -861,8 +871,9 @@ Global Symbols
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteRAM_Prepare
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_GNRMC_Analysis
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -872,25 +883,25 @@ Global Symbols
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteRAM_Prepare
 </UL>
 
-<P><STRONG><a name="[b8]"></a>LCD_DrawLine</STRONG> (Thumb, 176 bytes, Stack size 68 bytes, lcd.o(.text))
+<P><STRONG><a name="[b7]"></a>LCD_DrawLine</STRONG> (Thumb, 176 bytes, Stack size 68 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = LCD_DrawLine &rArr; LCD_DrawPoint &rArr; LCD_SetCursor &rArr; LCD_WriteReg
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawPoint
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawRectangle
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
 </UL>
 
 <P><STRONG><a name="[e3]"></a>LCD_DrawRectangle</STRONG> (Thumb, 60 bytes, Stack size 20 bytes, lcd.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<BR><BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
 
-<P><STRONG><a name="[b9]"></a>LCD_Draw_Circle</STRONG> (Thumb, 152 bytes, Stack size 28 bytes, lcd.o(.text))
+<P><STRONG><a name="[b8]"></a>LCD_Draw_Circle</STRONG> (Thumb, 152 bytes, Stack size 28 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = LCD_Draw_Circle &rArr; LCD_DrawPoint &rArr; LCD_SetCursor &rArr; LCD_WriteReg
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawPoint
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
 </UL>
 
 <P><STRONG><a name="[e4]"></a>LCD_ShowChar</STRONG> (Thumb, 272 bytes, Stack size 40 bytes, lcd.o(.text))
@@ -929,12 +940,13 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowChar
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_GNRMC_Analysis
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -948,14 +960,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c1]"></a>KEY_Scan</STRONG> (Thumb, 154 bytes, Stack size 8 bytes, key.o(.text))
+<P><STRONG><a name="[9b]"></a>KEY_Scan</STRONG> (Thumb, 154 bytes, Stack size 8 bytes, key.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = KEY_Scan
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[e8]"></a>SPI1_ReadWriteByte</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, spi.o(.text))
@@ -1342,39 +1355,42 @@ Global Symbols
 <P><STRONG><a name="[111]"></a>NMEA_GPGSV_Analysis</STRONG> (Thumb, 290 bytes, Stack size 48 bytes, gps.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Str2num
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Comma_Pos
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 </UL>
 
 <P><STRONG><a name="[113]"></a>NMEA_BDGSV_Analysis</STRONG> (Thumb, 298 bytes, Stack size 48 bytes, gps.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Str2num
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Comma_Pos
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 </UL>
 
 <P><STRONG><a name="[114]"></a>NMEA_GNGGA_Analysis</STRONG> (Thumb, 96 bytes, Stack size 24 bytes, gps.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Str2num
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Comma_Pos
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 </UL>
 
 <P><STRONG><a name="[115]"></a>NMEA_GNGSA_Analysis</STRONG> (Thumb, 176 bytes, Stack size 32 bytes, gps.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Str2num
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Comma_Pos
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 </UL>
 
-<P><STRONG><a name="[116]"></a>NMEA_GNRMC_Analysis</STRONG> (Thumb, 580 bytes, Stack size 56 bytes, gps.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = NMEA_GNRMC_Analysis &rArr; NMEA_Str2num &rArr; NMEA_Pow
+<P><STRONG><a name="[116]"></a>NMEA_GNRMC_Analysis</STRONG> (Thumb, 696 bytes, Stack size 56 bytes, gps.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 156<LI>Call Chain = NMEA_GNRMC_Analysis &rArr; LCD_ShowString &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint &rArr; LCD_WriteReg
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Str2num
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Pow
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Comma_Pos
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPS_Analysis
 </UL>
@@ -1383,15 +1399,15 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Str2num
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Pow
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_Comma_Pos
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 </UL>
 
 <P><STRONG><a name="[c5]"></a>GPS_Analysis</STRONG> (Thumb, 16 bytes, Stack size 16 bytes, gps.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = GPS_Analysis &rArr; NMEA_GNRMC_Analysis &rArr; NMEA_Str2num &rArr; NMEA_Pow
+<BR><BR>[Stack]<UL><LI>Max Depth = 172<LI>Call Chain = GPS_Analysis &rArr; NMEA_GNRMC_Analysis &rArr; LCD_ShowString &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint &rArr; LCD_WriteReg
 </UL>
 <BR>[Calls]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_GNRMC_Analysis
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 </UL>
 
 <P><STRONG><a name="[119]"></a>SkyTra_Cfg_Ack_Check</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, gps.o(.text))
@@ -1529,10 +1545,11 @@ Global Symbols
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM4_Set
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1544,10 +1561,11 @@ Global Symbols
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM4_Set
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1568,10 +1586,11 @@ Global Symbols
 
 <P><STRONG><a name="[90]"></a>delay_ms</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, delay.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SkyTra_Cfg_Ack_Check
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Scan
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_GNRMC_Analysis
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SkyTra_Cfg_Prt
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Scan
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1806,7 +1825,7 @@ Global Symbols
 <P><STRONG><a name="[1fb]"></a>GPIO_StructInit</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, stm32f10x_gpio.o(.text), UNUSED)
 
 <P><STRONG><a name="[e7]"></a>GPIO_ReadInputDataBit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_gpio.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Scan
+<BR><BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Scan
 </UL>
 
 <P><STRONG><a name="[1fc]"></a>GPIO_ReadInputData</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f10x_gpio.o(.text), UNUSED)
@@ -2403,38 +2422,38 @@ Global Symbols
 <P><STRONG><a name="[153]"></a>mem_malloc</STRONG> (Thumb, 116 bytes, Stack size 24 bytes, malloc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = mem_malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mymalloc
+<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mymalloc
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myrealloc
 </UL>
 
 <P><STRONG><a name="[152]"></a>mem_free</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, malloc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = mem_free
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myfree
+<BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myfree
 </UL>
 
-<P><STRONG><a name="[bf]"></a>myfree</STRONG> (Thumb, 24 bytes, Stack size 16 bytes, malloc.o(.text))
+<P><STRONG><a name="[be]"></a>myfree</STRONG> (Thumb, 24 bytes, Stack size 16 bytes, malloc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = myfree &rArr; mem_free
 </UL>
 <BR>[Calls]<UL><LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_free
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
 <LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memfree
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myrealloc
 </UL>
 
-<P><STRONG><a name="[bb]"></a>mymalloc</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, malloc.o(.text))
+<P><STRONG><a name="[ba]"></a>mymalloc</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, malloc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = mymalloc &rArr; mem_malloc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exfuns_init
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memalloc
 </UL>
 
 <P><STRONG><a name="[154]"></a>myrealloc</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, malloc.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myfree
+<BR><BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myfree
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_malloc
 <LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mymemcpy
 </UL>
@@ -2442,7 +2461,7 @@ Global Symbols
 <P><STRONG><a name="[8a]"></a>exfuns_init</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, exfuns.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = exfuns_init &rArr; mymalloc &rArr; mem_malloc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mymalloc
+<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mymalloc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2492,8 +2511,8 @@ Global Symbols
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_SPI_SpeedLow
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_SPI_ReadWriteByte
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 </UL>
@@ -2504,8 +2523,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Flash_Write
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_WriteDisk
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_truncate
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
@@ -2525,7 +2544,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[184]"></a>get_fattime</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, diskio.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
 <LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_setlabel
 <LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkfs
@@ -2535,11 +2554,11 @@ Global Symbols
 <P><STRONG><a name="[15f]"></a>ff_memalloc</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, diskio.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = ff_memalloc &rArr; mymalloc &rArr; mem_malloc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mymalloc
+<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mymalloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_utime
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_chmod
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_stat
@@ -2551,11 +2570,11 @@ Global Symbols
 <P><STRONG><a name="[160]"></a>ff_memfree</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, diskio.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = ff_memfree &rArr; myfree &rArr; mem_free
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myfree
+<BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myfree
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_utime
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_chmod
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_stat
@@ -2565,8 +2584,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[16a]"></a>clust2sect</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, ff.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
@@ -2579,8 +2598,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_truncate
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
@@ -2608,7 +2627,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9f]"></a>f_open</STRONG> (Thumb, 384 bytes, Stack size 96 bytes, ff.o(.text))
+<P><STRONG><a name="[a1]"></a>f_open</STRONG> (Thumb, 384 bytes, Stack size 96 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 432<LI>Call Chain = f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
@@ -2622,13 +2641,13 @@ Global Symbols
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memalloc
 <LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fattime
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
 </UL>
 
-<P><STRONG><a name="[a1]"></a>f_read</STRONG> (Thumb, 450 bytes, Stack size 64 bytes, ff.o(.text))
+<P><STRONG><a name="[a3]"></a>f_read</STRONG> (Thumb, 450 bytes, Stack size 64 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = f_read &rArr; get_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
@@ -2639,8 +2658,8 @@ Global Symbols
 <LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_gets
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<BR>[Called By]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_gets
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
 </UL>
 
 <P><STRONG><a name="[187]"></a>f_write</STRONG> (Thumb, 498 bytes, Stack size 64 bytes, ff.o(.text))
@@ -2654,7 +2673,7 @@ Global Symbols
 <LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
+<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_printf
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;putc_bfd
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_putc
@@ -2670,22 +2689,22 @@ Global Symbols
 <LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fattime
 <LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
+<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
 </UL>
 
-<P><STRONG><a name="[a2]"></a>f_close</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, ff.o(.text))
+<P><STRONG><a name="[a4]"></a>f_close</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = f_close &rArr; f_sync &rArr; sync_fs &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
 <LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
 </UL>
 
-<P><STRONG><a name="[b1]"></a>f_lseek</STRONG> (Thumb, 654 bytes, Stack size 48 bytes, ff.o(.text))
+<P><STRONG><a name="[b3]"></a>f_lseek</STRONG> (Thumb, 654 bytes, Stack size 48 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = f_lseek &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
@@ -2696,11 +2715,11 @@ Global Symbols
 <LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
 </UL>
 
-<P><STRONG><a name="[aa]"></a>f_opendir</STRONG> (Thumb, 136 bytes, Stack size 40 bytes, ff.o(.text))
+<P><STRONG><a name="[ac]"></a>f_opendir</STRONG> (Thumb, 136 bytes, Stack size 40 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = f_opendir &rArr; follow_path &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
@@ -2710,18 +2729,18 @@ Global Symbols
 <LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memfree
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memalloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_files
+<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_files
 </UL>
 
-<P><STRONG><a name="[ac]"></a>f_closedir</STRONG> (Thumb, 22 bytes, Stack size 16 bytes, ff.o(.text))
+<P><STRONG><a name="[ae]"></a>f_closedir</STRONG> (Thumb, 22 bytes, Stack size 16 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = f_closedir &rArr; validate
 </UL>
 <BR>[Calls]<UL><LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_files
+<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_files
 </UL>
 
-<P><STRONG><a name="[ab]"></a>f_readdir</STRONG> (Thumb, 114 bytes, Stack size 32 bytes, ff.o(.text))
+<P><STRONG><a name="[ad]"></a>f_readdir</STRONG> (Thumb, 114 bytes, Stack size 32 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = f_readdir &rArr; dir_read &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
@@ -2732,7 +2751,7 @@ Global Symbols
 <LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memfree
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memalloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_files
+<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_files
 </UL>
 
 <P><STRONG><a name="[189]"></a>f_stat</STRONG> (Thumb, 84 bytes, Stack size 72 bytes, ff.o(.text), UNUSED)
@@ -2856,12 +2875,12 @@ Global Symbols
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_initialize
 </UL>
 
-<P><STRONG><a name="[bc]"></a>f_gets</STRONG> (Thumb, 82 bytes, Stack size 40 bytes, ff.o(.text))
+<P><STRONG><a name="[bb]"></a>f_gets</STRONG> (Thumb, 82 bytes, Stack size 40 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = f_gets &rArr; f_read &rArr; get_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
 </UL>
 
 <P><STRONG><a name="[194]"></a>f_putc</STRONG> (Thumb, 64 bytes, Stack size 96 bytes, ff.o(.text), UNUSED)
@@ -2869,15 +2888,15 @@ Global Symbols
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 </UL>
 
-<P><STRONG><a name="[a7]"></a>f_puts</STRONG> (Thumb, 74 bytes, Stack size 96 bytes, ff.o(.text))
+<P><STRONG><a name="[a9]"></a>f_puts</STRONG> (Thumb, 74 bytes, Stack size 96 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 416<LI>Call Chain = f_puts &rArr; putc_bfd &rArr; f_write &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI1_ReadWriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;putc_bfd
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
 </UL>
 
 <P><STRONG><a name="[195]"></a>f_printf</STRONG> (Thumb, 674 bytes, Stack size 160 bytes, ff.o(.text), UNUSED)
@@ -2908,31 +2927,32 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;u2_printf
 </UL>
 
-<P><STRONG><a name="[a0]"></a>__2printf</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, __2printf.o(.text))
+<P><STRONG><a name="[a2]"></a>__2printf</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, __2printf.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
 <LI>Call Chain = __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
 </UL>
 
-<P><STRONG><a name="[a6]"></a>__2sprintf</STRONG> (Thumb, 38 bytes, Stack size 32 bytes, __2sprintf.o(.text))
+<P><STRONG><a name="[a8]"></a>__2sprintf</STRONG> (Thumb, 38 bytes, Stack size 32 bytes, __2sprintf.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136 + Unknown Stack Size
 <LI>Call Chain = __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sputc
 <LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_common
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
 </UL>
 
 <P><STRONG><a name="[199]"></a>_printf_pre_padding</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, _printf_pad.o(.text))
@@ -3021,17 +3041,17 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_common
 </UL>
 
-<P><STRONG><a name="[a5]"></a>atoi</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, atoi.o(.text))
+<P><STRONG><a name="[a7]"></a>atoi</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, atoi.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
 </UL>
 
-<P><STRONG><a name="[bd]"></a>strstr</STRONG> (Thumb, 36 bytes, Stack size 12 bytes, strstr.o(.text))
+<P><STRONG><a name="[bc]"></a>strstr</STRONG> (Thumb, 36 bytes, Stack size 12 bytes, strstr.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = strstr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_GNVTG_Analysis
@@ -3040,8 +3060,8 @@ Global Symbols
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_GNGGA_Analysis
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_BDGSV_Analysis
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_GPGSV_Analysis
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_file
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
 </UL>
 
 <P><STRONG><a name="[157]"></a>strcpy</STRONG> (Thumb, 72 bytes, Stack size 12 bytes, strcpy.o(.text), UNUSED)
@@ -3052,16 +3072,16 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;u2_printf
 </UL>
 
-<P><STRONG><a name="[a8]"></a>strcat</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, strcat.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_files
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
+<P><STRONG><a name="[aa]"></a>strcat</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, strcat.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_files
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_init
 </UL>
 
-<P><STRONG><a name="[c3]"></a>__aeabi_memclr</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memclr.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
+<P><STRONG><a name="[c0]"></a>__aeabi_memclr</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memclr.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_playback
 </UL>
 
 <P><STRONG><a name="[1a4]"></a>__rt_memclr</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, rt_memclr.o(.text), UNUSED)
@@ -3070,10 +3090,11 @@ Global Symbols
 
 <P><STRONG><a name="[293]"></a>_memset</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr.o(.text), UNUSED)
 
-<P><STRONG><a name="[af]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text))
+<P><STRONG><a name="[b1]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
 </UL>
 
 <P><STRONG><a name="[294]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
@@ -3101,7 +3122,7 @@ Global Symbols
 <P><STRONG><a name="[29a]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
 <P><STRONG><a name="[1a2]"></a>__aeabi_errno_addr</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, rt_errno_addr_intlibspace.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
+<BR><BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 <LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoul
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 </UL>
@@ -3158,12 +3179,12 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__c89vsprintf
 </UL>
 
 <P><STRONG><a name="[4e]"></a>_sputc</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, _sputc.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<BR><BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__c89vsprintf
 </UL>
 <BR>[Address Reference Count : 2]<UL><LI> c89vsprintf.o(.text)
@@ -3201,7 +3222,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_common
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ferror
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 
 <P><STRONG><a name="[1b1]"></a>_printf_wctomb</STRONG> (Thumb, 182 bytes, Stack size 56 bytes, _printf_wctomb.o(.text))
@@ -3258,7 +3279,7 @@ Global Symbols
 <LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoul
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
+<BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 </UL>
 
 <P><STRONG><a name="[29e]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
@@ -3461,7 +3482,7 @@ Global Symbols
 <P><STRONG><a name="[c8]"></a>__aeabi_d2f</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2f
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 </UL>
 
 <P><STRONG><a name="[1c0]"></a>_d2f</STRONG> (Thumb, 98 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f), UNUSED)
@@ -3489,7 +3510,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dmul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SSD_BackLightSet
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 </UL>
 
 <P><STRONG><a name="[1c4]"></a>_dmul</STRONG> (Thumb, 332 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul), UNUSED)
@@ -3508,13 +3529,14 @@ Global Symbols
 <LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dmul
 </UL>
 
-<P><STRONG><a name="[b0]"></a>__aeabi_f2d</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d))
+<P><STRONG><a name="[b2]"></a>__aeabi_f2d</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_f2d
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record_end
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 </UL>
 
 <P><STRONG><a name="[1c6]"></a>_f2d</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d), UNUSED)
@@ -3522,11 +3544,12 @@ Global Symbols
 <LI><a href="#[1c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dretinf
 </UL>
 
-<P><STRONG><a name="[b6]"></a>__aeabi_fadd</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, faddsub_clz.o(x$fpl$fadd))
+<P><STRONG><a name="[b5]"></a>__aeabi_fadd</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, faddsub_clz.o(x$fpl$fadd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_GNRMC_Analysis
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 </UL>
 
 <P><STRONG><a name="[1c8]"></a>_fadd</STRONG> (Thumb, 196 bytes, Stack size 16 bytes, faddsub_clz.o(x$fpl$fadd), UNUSED)
@@ -3535,12 +3558,12 @@ Global Symbols
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fnaninf
 </UL>
 
-<P><STRONG><a name="[b4]"></a>__aeabi_fdiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fdiv.o(x$fpl$fdiv))
+<P><STRONG><a name="[c4]"></a>__aeabi_fdiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fdiv.o(x$fpl$fdiv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fdiv
 </UL>
 <BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_GNRMC_Analysis
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 </UL>
 
 <P><STRONG><a name="[1ca]"></a>_fdiv</STRONG> (Thumb, 384 bytes, Stack size 16 bytes, fdiv.o(x$fpl$fdiv), UNUSED)
@@ -3548,37 +3571,38 @@ Global Symbols
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fnaninf
 </UL>
 
-<P><STRONG><a name="[ae]"></a>__aeabi_f2iz</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, ffix.o(x$fpl$ffix))
+<P><STRONG><a name="[b0]"></a>__aeabi_f2iz</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, ffix.o(x$fpl$ffix))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_f2iz
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
+<BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_data_record
 </UL>
 
 <P><STRONG><a name="[1cb]"></a>_ffix</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, ffix.o(x$fpl$ffix), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fnaninf
 </UL>
 
-<P><STRONG><a name="[b7]"></a>__aeabi_f2uiz</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, ffixu.o(x$fpl$ffixu))
+<P><STRONG><a name="[b6]"></a>__aeabi_f2uiz</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, ffixu.o(x$fpl$ffixu))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_f2uiz
 </UL>
 <BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_GNRMC_Analysis
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;route_lcd_show
 </UL>
 
 <P><STRONG><a name="[1cc]"></a>_ffixu</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, ffixu.o(x$fpl$ffixu), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fnaninf
 </UL>
 
-<P><STRONG><a name="[be]"></a>__aeabi_i2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$fflt))
-<BR><BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
+<P><STRONG><a name="[bd]"></a>__aeabi_i2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$fflt))
+<BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_history_route
 </UL>
 
 <P><STRONG><a name="[2a1]"></a>_fflt</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$fflt), UNUSED)
 
-<P><STRONG><a name="[b3]"></a>__aeabi_ui2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu))
+<P><STRONG><a name="[c3]"></a>__aeabi_ui2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu))
 <BR><BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMEA_GNRMC_Analysis
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps_Msg_Show
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 </UL>
 
 <P><STRONG><a name="[2a2]"></a>_ffltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu), UNUSED)
@@ -3614,7 +3638,7 @@ Global Symbols
 <P><STRONG><a name="[c6]"></a>__aeabi_fsub</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, faddsub_clz.o(x$fpl$fsub))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fsub
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;show_route
 </UL>
 
 <P><STRONG><a name="[1ce]"></a>_fsub</STRONG> (Thumb, 234 bytes, Stack size 16 bytes, faddsub_clz.o(x$fpl$fsub), UNUSED)
@@ -3635,16 +3659,16 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[9e]"></a>SetSysClockTo72</STRONG> (Thumb, 214 bytes, Stack size 12 bytes, system_stm32f10x.o(.text))
+<P><STRONG><a name="[a0]"></a>SetSysClockTo72</STRONG> (Thumb, 214 bytes, Stack size 12 bytes, system_stm32f10x.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = SetSysClockTo72
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
+<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
 </UL>
 
-<P><STRONG><a name="[9d]"></a>SetSysClock</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, system_stm32f10x.o(.text))
+<P><STRONG><a name="[9f]"></a>SetSysClock</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, system_stm32f10x.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = SetSysClock &rArr; SetSysClockTo72
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClockTo72
+<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClockTo72
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
 </UL>
@@ -3672,7 +3696,7 @@ Local Symbols
 <P><STRONG><a name="[170]"></a>mem_cpy</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = mem_cpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 <LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_register
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gen_numname
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
@@ -3725,7 +3749,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_window
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
 <LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put_fat
 <LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
@@ -3764,7 +3788,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put_fat
 <LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_truncate
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_unlink
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
@@ -3776,7 +3800,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put_fat
 <LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
@@ -3785,8 +3809,8 @@ Local Symbols
 <P><STRONG><a name="[186]"></a>clmt_clust</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = clmt_clust
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 </UL>
 
@@ -3796,8 +3820,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
 <LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clust2sect
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
 <LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;follow_path
 <LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_remove
 <LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_register
@@ -3817,7 +3841,7 @@ Local Symbols
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_window
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_set
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
 <LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_remove
 <LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_register
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_read
@@ -3839,15 +3863,15 @@ Local Symbols
 <P><STRONG><a name="[17e]"></a>ld_clust</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, ff.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ld_clust
 </UL>
-<BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;follow_path
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_unlink
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_rename
 </UL>
 
 <P><STRONG><a name="[185]"></a>st_clust</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, ff.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_rename
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
@@ -3911,7 +3935,7 @@ Local Symbols
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_unlink
 <LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_setlabel
 <LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_getlabel
@@ -3931,7 +3955,7 @@ Local Symbols
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_set
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_cpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_rename
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 </UL>
@@ -3951,7 +3975,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_convert
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_stat
 </UL>
 
@@ -3974,8 +3998,8 @@ Local Symbols
 <LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_clust
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
 </UL>
-<BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_utime
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_chmod
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_stat
@@ -4010,8 +4034,8 @@ Local Symbols
 <LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_status
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_initialize
 </UL>
-<BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mount
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_utime
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_chmod
@@ -4029,11 +4053,11 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_status
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_closedir
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_closedir
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_truncate
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
@@ -4044,7 +4068,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
+<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_printf
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_putc
 </UL>

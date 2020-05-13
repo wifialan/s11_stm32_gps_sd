@@ -1,9 +1,3 @@
-/*
- * route.c
- *
- *  Created on: 2020年4月20日
- *      Author: multimicro
- */
 #include "string.h"
 #include "route.h"
 #include "usart.h"
@@ -42,10 +36,6 @@ void route_init()
     route.precise = 1.0;
     route.x_offset = 0;
     route.y_offset = 0;
-	
-	LCD_ShowString(30,280,200,16,16,"This Program is");
-    LCD_ShowString(30,300,200,16,16,"Developed By MLTBEANS");
-
     res=f_open (&fil,"0:/file_manage.txt", FA_OPEN_ALWAYS|FA_READ);
 
     if(res!=FR_OK)
@@ -162,12 +152,13 @@ void show_route()
         tp=gpsx.latitude;//纬度
         route.y_current = tp / 100000;
 
-        //经度每隔0.00001度，距离相差约1米
+        //经度每隔0.00001度，距离相差约0.55米
         //纬度每隔0.00001度，距离相差约1.1米
         route.x_offset_last = route.x_offset;
         route.y_offset_last = route.y_offset;
-        route.x_offset = (route.x_current - route.x_init) * 100000.0 * route.precise;
-        route.y_offset = (route.y_current - route.y_init) * 100000.0 * 1.1 * route.precise;
+        route.x_offset = (route.x_current - route.x_init) * 100000.0 * 0.55;
+        route.y_offset = (-route.y_current + route.y_init) * 100000.0 * 1.1;
+		Gps_Msg_Show();				//显示信息
         route_lcd_show();
         route.receive_gps_data = RECEIVE_GPS_DATA_TURE;
 
@@ -250,12 +241,15 @@ void route_lcd_show()
 	{
 		//若没有回放数据，则执行下面语句
 		use_gpiob_io();
-		Gps_Msg_Show();				//显示信息
 		sprintf((char *)buf,"x:%.0f",route.x_offset);	//得到x偏移值
 		LCD_Fill(16,40,16+40,40+16,WHITE);//清除显示
 		LCD_ShowString(0,40,50,16,16,(u8*)buf);
 		for(i=0;i<sizeof(buf);i++)buf[i]='\0';
-		sprintf((char *)buf," y:%.0f",route.y_offset);//得到y偏移值
+
+		if((int)route.y_offset == 0)
+			sprintf((char *)buf," y:%.0f",route.y_offset);//得到y偏移值
+		else
+			sprintf((char *)buf," y:%.0f",-route.y_offset);//得到y偏移值
 		LCD_Fill(116,40,116+40,40+16,WHITE);//清除显示
 		LCD_ShowString(100,40,50,16,16,(u8*)buf);
 		
@@ -284,41 +278,23 @@ void Gps_Msg_Show(void)
 {
     float tp;
     POINT_COLOR=BLUE;
+	use_gpiob_io();
     tp=gpsx.longitude;
     sprintf((char *)dtbuf,"Longitude:%.6f %1c   ",tp/=100000,gpsx.ewhemi);	//得到经度字符串
     LCD_ShowString(0,0,200,16,16,dtbuf);
     tp=gpsx.latitude;
     sprintf((char *)dtbuf,"Latitude : %.6f %1c   ",tp/=100000,gpsx.nshemi);	//得到纬度字符串
     LCD_ShowString(0,20,200,16,16,dtbuf);
-#if 0
-    tp=gpsx.altitude;
-    sprintf((char *)dtbuf,"Altitude:%.1fm     ",tp/=10);	    			//得到高度字符串
-    LCD_ShowString(30,160,200,16,16,dtbuf);
-    tp=gpsx.speed;
-    sprintf((char *)dtbuf,"Speed:%.3fkm/h     ",tp/=1000);		    		//得到速度字符串
-    LCD_ShowString(30,180,200,16,16,dtbuf);
-    if(gpsx.fixmode<=3)														//定位状态
-    {
-        sprintf((char *)dtbuf,"Fix Mode:%s",fixmode_tbl[gpsx.fixmode]);
-        LCD_ShowString(30,200,200,16,16,dtbuf);
-    }
-    sprintf((char *)dtbuf,"GPS+BD Valid satellite:%02d",gpsx.posslnum);	 		//用于定位的GPS卫星数
-    LCD_ShowString(30,220,200,16,16,dtbuf);
-    sprintf((char *)dtbuf,"GPS Visible satellite:%02d",gpsx.svnum%100);	 		//可见GPS卫星数
-    LCD_ShowString(30,240,200,16,16,dtbuf);
-
-    sprintf((char *)dtbuf,"BD Visible satellite:%02d",gpsx.beidou_svnum%100);	 		//可见北斗卫星数
-    LCD_ShowString(30,260,200,16,16,dtbuf);
-
-    sprintf((char *)dtbuf,"UTC Date:%04d/%02d/%02d   ",gpsx.utc.year,gpsx.utc.month,gpsx.utc.date);	//显示UTC日期
-    LCD_ShowString(30,280,200,16,16,dtbuf);
-    sprintf((char *)dtbuf,"UTC Time:%02d:%02d:%02d   ",gpsx.utc.hour,gpsx.utc.min,gpsx.utc.sec);	//显示UTC时间
-    LCD_ShowString(30,300,200,16,16,dtbuf);
-#endif
+	use_gpiob_usart3();
 }
 
 void route_data_record_end()
 {
+	char gps_longtitude_start[12]={0};
+	char gps_latitude_start[12]={0};
+	char gps_longtitude_end[12]={0};
+	char gps_latitude_end[12]={0};
+	char gps_data[55]={0};
 	//将正在记录的文件内添加终止标记符“#”
 	clear_file_name();
 
@@ -327,16 +303,31 @@ void route_data_record_end()
     strcat((char *)route.sd_file_name,(char *)".txt");
 
     res=f_open (&fil,(char *)route.sd_file_name, FA_OPEN_ALWAYS|FA_WRITE);
-    if(res!=FR_OK)
+    if(res!=FR_OK) 
     {
         printf("\r\nopen %s.txt fail .. \r\n",route.sd_file_number);
         printf("open return code: %d\r\n",res);
     } else {
         printf("\r\nopen %s.txt success .. \r\n",route.sd_file_number);
         printf("open return code: %d\r\n",res);
-        res = f_lseek(&fil,f_size(&fil));
+        res = f_lseek(&fil,f_size(&fil));//找到文件数据末尾
         printf("f_lseek return code: %d\r\n",res);
-        f_puts((char *)"#",&fil);
+		
+        sprintf(gps_longtitude_start,"%.6f",route.x_init);
+		sprintf(gps_longtitude_end,"%.6f",route.y_init);
+		sprintf(gps_latitude_start,"%.6f",route.x_current);
+		sprintf(gps_latitude_end,"%.6f",route.y_current);
+		strcat(gps_data,"#");
+		strcat(gps_data,gps_longtitude_start);
+		strcat(gps_data,",");
+		strcat(gps_data,gps_longtitude_end);
+		strcat(gps_data,"#");
+		strcat(gps_data,gps_latitude_start);
+		strcat(gps_data,",");
+		strcat(gps_data,gps_latitude_end);
+		strcat(gps_data,"#");
+		
+		f_puts(gps_data,&fil);
         f_close(&fil);
     }
 }
@@ -501,6 +492,7 @@ void show_history_route()
     u32 data=0;
     u8 i=0;
     char *sd_data;
+	char gps_data_char[15];
 
     clear_file_name();
     strcat((char *)route.sd_file_name,(char *)"0:/");
@@ -543,6 +535,66 @@ void show_history_route()
 			//检测分号“;”后面是否为“#”
 			if(route.sd_file_strx2[1] == '#')
 			{
+				//准备解析起始点GPS和终点GPS
+				//#12323456,30123456#123123456,30123456#
+				//0,0;1,1;#113.123486,30.123466#113.123446,30.123458#
+				route.sd_file_strx2 = strstr((const char*)(route.sd_file_strx2 ),"#");
+				for(i=0;i<15;i++)gps_data_char[i]=0;
+				for(i=0;; i++)
+				{
+					if(route.sd_file_strx2[i+1] == ',')
+						break;
+					gps_data_char[i]=route.sd_file_strx2[i+1];
+				}
+				//提取出来起始点经度
+//				gps_data = atoi(gps_data_char);
+//				sprintf(gps_data_char,"%.6f",(float)(gps_data / 1000000));
+				LCD_ShowString(0,210,10,16,12,(u8*)"E:");
+				LCD_ShowString(10,210,70,16,12,(u8*)gps_data_char);
+				
+				for(i=0;i<15;i++)gps_data_char[i]=0;
+				route.sd_file_strx2 = strstr((const char*)(route.sd_file_strx2 + 1),",");
+				for(i=0;; i++)
+				{
+					if(route.sd_file_strx2[i+1] == '#')
+						break;
+					gps_data_char[i]=route.sd_file_strx2[i+1];
+				}
+				//提取出来起始点纬度
+//				gps_data = atoi(gps_data_char);
+//				sprintf(gps_data_char,"%.6f",(float)(gps_data / 1000000));
+				LCD_ShowString(100,210,10,16,12,(u8*)"N:");
+				LCD_ShowString(110,210,70,16,12,(u8*)gps_data_char);
+				
+				//终点
+				for(i=0;i<15;i++)gps_data_char[i]=0;
+				route.sd_file_strx2 = strstr((const char*)(route.sd_file_strx2 ),"#");
+				for(i=0;; i++)
+				{
+					if(route.sd_file_strx2[i+1] == ',')
+						break;
+					gps_data_char[i]=route.sd_file_strx2[i+1];
+				}
+				//提取出来终点经度
+//				gps_data = atoi(gps_data_char);
+//				sprintf(gps_data_char,"%.6f",(float)(gps_data / 1000000));
+				LCD_ShowString(0,230,10,16,12,(u8*)"E:");
+				LCD_ShowString(10,230,70,16,12,(u8*)gps_data_char);
+				
+				for(i=0;i<15;i++)gps_data_char[i]=0;
+				route.sd_file_strx2 = strstr((const char*)(route.sd_file_strx2 + 1),",");
+				for(i=0;; i++)
+				{
+					if(route.sd_file_strx2[i+1] == '#')
+						break;
+					gps_data_char[i]=route.sd_file_strx2[i+1];
+				}
+				//提取出来终点纬度
+//				gps_data = atoi(gps_data_char);
+//				sprintf(gps_data_char,"%.6f",(float)(gps_data / 1000000));
+				LCD_ShowString(100,230,10,16,12,(u8*)"N:");
+				LCD_ShowString(110,230,70,16,12,(u8*)gps_data_char);
+				
 				//解析数据完毕
 				LCD_ShowString(20,250,220,16,12,(u8*)"Press KEY0 to Restart GPS");
 				LCD_ShowString(20,265,220,16,12,(u8*)"Press KEY1 to Playback GPS");

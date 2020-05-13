@@ -4,7 +4,6 @@
 #include "usart.h"
 #include "lcd.h"
 #include "key.h"
-//#include "usmart.h"
 #include "usart2.h"
 #include "malloc.h"
 #include "MMC_SD.h"
@@ -13,10 +12,7 @@
 #include "route.h"
 #include "gps.h"
 #include "string.h"
-//基于 ALIENTEK Mini STM32开发板范例代码29 修改
-//FATFS 实验
-//技术支持：www.openedv.com
-//广州市星翼电子科技有限公司
+
 
 /*******变量定义*****/
 FIL fil;
@@ -33,22 +29,18 @@ int main(void)
 	u8 key;
     u32 total,free;
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);// 设置中断优先级分组2
-    delay_init();	    	 //延时函数初始化
-    uart_init(115200);	 	//串口初始化为115200
-    USART3_Init(38400);  //初始化串口3波特率为115200
-    exfuns_init();		//为fatfs相关变量申请内存
-    LCD_Init();			//初始化液晶
-    LED_Init();         //LED初始化
+    delay_init();	    	 	//延时函数初始化
+    uart_init(115200);	 		//串口初始化为115200
+    USART3_Init(38400);  		//初始化串口3波特率为38400-GPS
+    exfuns_init();				//为fatfs相关变量申请内存-SD
+    LCD_Init();					//初始化液晶
+    LED_Init();         		//LED初始化
     KEY_Init();
-    //usmart_dev.init(72);
     mem_init();			//初始化内存池
 
     POINT_COLOR=RED;//设置字体为红色
     use_gpiob_io();
     LCD_ShowString(60,50,200,16,16,"Mini STM32");
-    LCD_ShowString(60,70,200,16,16,"This Program is");
-    LCD_ShowString(60,90,200,16,16,"Developed By MLTBEANS");
-    LCD_ShowString(60,110,200,16,16,"2020/04/28");
 
     while(SD_Initialize())					//检测SD卡
     {
@@ -60,7 +52,6 @@ int main(void)
     }
     exfuns_init();							//为fatfs相关变量申请内存
     f_mount(fs[0],"0:",1); 					//挂载SD卡
-    //f_mount(fs[1],"1:",1); 					//挂载FLASH.
     while(exf_getfree("0",&total,&free))	//得到SD卡的总容量和剩余容量
     {
         LCD_ShowString(60,150,200,16,16,"Fatfs Error!");
@@ -103,6 +94,30 @@ int main(void)
 	delay_ms(1000);
     LCD_Clear(WHITE);
 	
+	LCD_ShowString(20,90,220,16,16,(u8*)"Press KEY0 to start");
+	LCD_ShowString(20,110,220,16,16,(u8*)"Press KEY1 to playback");
+	
+	
+	//在这里选择是否要回放数据
+	while(1)
+	{
+		key=KEY_Scan(0);
+		if(key==KEY0_PRES)
+		{
+			//KEY0按下，开始记录数据
+			LCD_Clear(WHITE);
+			break;
+		} else if(key==KEY1_PRES)
+		{
+			//KEY1按下，开始回放数据
+			LCD_Clear(WHITE);
+			LCD_ShowString(20,90,220,16,16,(u8*)"Please Select the File That");
+			LCD_ShowString(20,110,220,16,16,(u8*)"You Want to Playback");
+			route.sd_file_playback = PALYBACK_TURE;
+			route_data_playback();
+		}
+	}
+	
 	use_gpiob_usart3();
     route_init();
 
@@ -111,4 +126,5 @@ int main(void)
         show_route();
     }
 }
+
 

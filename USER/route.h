@@ -1,10 +1,3 @@
-/*
- * route.h
- *
- *  Created on: 2020Äê4ÔÂ20ÈÕ
- *      Author: multimicro
- */
-
 #ifndef ROUTE_H_
 #define ROUTE_H_
 

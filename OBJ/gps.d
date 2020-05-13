@@ -3,7 +3,7 @@
 ..\obj\gps.o: ..\SYSTEM\sys\sys.h
 ..\obj\gps.o: ..\USER\stm32f10x.h
 ..\obj\gps.o: ..\CORE\core_cm3.h
-..\obj\gps.o: C:\ProgramSoftware\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\gps.o: E:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\gps.o: ..\USER\system_stm32f10x.h
 ..\obj\gps.o: ..\USER\stm32f10x_conf.h
 ..\obj\gps.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h
@@ -33,7 +33,9 @@
 ..\obj\gps.o: ..\HARDWARE\LED\led.h
 ..\obj\gps.o: ..\SYSTEM\delay\delay.h
 ..\obj\gps.o: ..\HARDWARE\USART2\usart2.h
-..\obj\gps.o: C:\ProgramSoftware\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\gps.o: C:\ProgramSoftware\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-..\obj\gps.o: C:\ProgramSoftware\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\gps.o: C:\ProgramSoftware\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\gps.o: E:\keil5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\gps.o: E:\keil5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\gps.o: E:\keil5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\gps.o: E:\keil5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\gps.o: ..\HARDWARE\LCD\lcd.h
+..\obj\gps.o: E:\keil5\ARM\ARMCC\Bin\..\include\stdlib.h

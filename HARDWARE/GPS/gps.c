@@ -6,6 +6,7 @@
 #include "stdarg.h"	 
 #include "string.h"	 
 #include "math.h"
+#include "lcd.h"
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
 //ALIENTEK STM32F103开发板
@@ -203,6 +204,20 @@ void NMEA_GNRMC_Analysis(nmea_msg *gpsx,u8 *buf)
 	u32 temp;	   
 	float rs;  
 	p1=(u8*)strstr((const char *)buf,"$GNRMC");//"$GNRMC",经常有&和GNRMC分开的情况,故只判断GPRMC.
+	posx=NMEA_Comma_Pos(p1,2);
+	if(posx!=0xFF)
+	{
+		if(p1[posx] == 'V')
+		{
+			//未定位状态
+			 POINT_COLOR=RED;//设置字体为红色
+			LCD_Fill(20,0,200,0+16,WHITE);
+			LCD_ShowString(20,0,200,16,16,"GPS Not Online");
+			 POINT_COLOR=BLUE;//设置字体为蓝色
+			delay_ms(1000);
+			LCD_Fill(20,0,200,0+16,WHITE);
+		}
+	}
 	posx=NMEA_Comma_Pos(p1,1);								//得到UTC时间
 	if(posx!=0XFF)
 	{
